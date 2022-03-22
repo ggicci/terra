@@ -8,7 +8,7 @@ build:
 	go build -o bin/terra
 
 start:
-	IO4_TERRA_ENV=dev bin/terra
+	ENV=dev bin/terra
 
 dev: dev/build-dev-image dev/start-dev-container
 
@@ -22,7 +22,7 @@ dev/start-dev-container: assert/on-host # start a container named "dev-terra" as
 
 assert/on-host:
 	@if [[ "${IO4_TERRA_DEV_IN_CONTAINER}" = "1" ]]; then \
-		>&2 echo "[WARN] \`make dev\` is only allowed on the host, you are in the container."; \
+		>&2 echo -e "\n    [WARN] only allowed on the host, you are in the container.\n"; \
 		exit 1; \
 	fi
 

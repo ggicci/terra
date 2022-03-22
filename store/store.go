@@ -6,14 +6,19 @@ import (
 )
 
 var (
-	// globalStore Store
-	psql = sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
+	globalStore Store
+	psql        = sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
 )
 
 // store implements Store interface.
 type store struct {
 	internal.SqlStore
 	Store
+}
+
+// Get retrieves a global Store instance.
+func Get() Store {
+	return globalStore
 }
 
 func NewStore(sqlstore internal.SqlStore) Store {
@@ -25,4 +30,8 @@ func NewStore(sqlstore internal.SqlStore) Store {
 	}
 	st.Store = domainProvider
 	return st
+}
+
+func replaceGlobalStore(newStore Store) {
+	globalStore = newStore
 }

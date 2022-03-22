@@ -5,29 +5,29 @@ import (
 	"os"
 )
 
-type Environment string
-
-const (
-	EnvDevelopment Environment = "dev"
-	EnvStaging     Environment = "stag"
-	EnvProduction  Environment = "prod"
-)
-
 var (
 	flagEnv Environment
 )
 
+type Environment string
+
+const (
+	EnvDevelopment Environment = "dev"
+	EnvStaging     Environment = "staging"
+	EnvProduction  Environment = "production"
+)
+
 func init() {
-	env := os.Getenv("IO4_TERRA_ENV")
+	env := os.Getenv("ENV")
 	switch env {
-	case string(EnvDevelopment):
+	case string(EnvDevelopment), "":
 		flagEnv = EnvDevelopment
 	case string(EnvStaging):
 		flagEnv = EnvStaging
 	case string(EnvProduction):
 		flagEnv = EnvProduction
 	default:
-		panic(fmt.Sprintf("invalid IO4_TERRA_ENV: %q", env))
+		panic(fmt.Sprintf("invalid ENV: %q", env))
 	}
 }
 

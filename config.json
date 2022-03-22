@@ -1,0 +1,11 @@
+{
+  "Server": {
+    "Addr": ":8080"
+  },
+  "TerraDB": {
+    "DSN": "user=root password=OdWLqIhVm9a1mkwF host=dev-terra-db port=5432 database=terra sslmode=disable",
+    "MaxOpenConns": 50,
+    "MaxIdleConns": 50,
+    "TraceOn": true
+  }
+}

@@ -2,17 +2,13 @@
 version: "3"
 
 services:
-  dev-terra:
+  terra:
     image: dev-terra:latest
     container_name: dev-terra
     user: "${DOCKER_UID}:${DOCKER_GID}"
     volumes:
       - ".:/home/coder/workspace:delegated"
       - "${HOME}/.io4/terra/dev/home:/home/coder"
-    environment:
-      PG_HOST: "terra:5432"
-      PG_USER: "root"
-      PG_PASSWORD: "OdWLqIhVm9a1mkwF"
     networks:
       - terra
 

@@ -47,8 +47,7 @@ type sqlStore struct {
 	rollingCounter int64 // used by GetReplica()
 }
 
-func NewSqlStore(master *sql.DB, replicas ...*sql.DB) (SqlStore, error) {
-
+func NewSqlStore(master *sql.DB, replicas ...*sql.DB) SqlStore {
 	store := &sqlStore{
 		rollingCounter: 0,
 	}
@@ -59,7 +58,7 @@ func NewSqlStore(master *sql.DB, replicas ...*sql.DB) (SqlStore, error) {
 		store.replicas[i] = sqlx.NewDb(replica, "pgx")
 	}
 
-	return store, nil
+	return store
 }
 
 func (s *sqlStore) Master() SqlxRunner {

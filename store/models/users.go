@@ -2,7 +2,6 @@ package models
 
 import (
 	"regexp"
-	"strings"
 	"time"
 )
 
@@ -17,20 +16,20 @@ const (
 )
 
 var (
-	// RegexUsername validates User.username (borrowed from GitHub).
+	// RegexLogin validates User.username (borrowed from GitHub).
 	// Username may only contain alphanumeric characters or single hyphens,
 	// and cannot begin or end with a hyphen.
 	// https://stackoverflow.com/a/58726961/1592264
-	RegexUsername = regexp.MustCompile(`^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$`)
+	RegexLogin = regexp.MustCompile(`^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$`)
 )
 
 // User represents a person who is a pebble collector.
 type User struct {
-	ID        int64     `db:"id" json:"id"`
+	Id        int64     `db:"id" json:"id"`
 	CreatedAt time.Time `db:"created_at" json:"created_at"`
 	UpdatedAt time.Time `db:"updated_at" json:"updated_at"`
-	Username  string    `db:"username" json:"username"`
-	GithubID  int64     `db:"github_id" json:"github_id"`
+	Login     string    `db:"login" json:"login"`
+	GithubId  int64     `db:"github_id" json:"github_id"`
 	State     UserState `db:"state" json:"state"`
 	Display   string    `db:"display" json:"display"`
 	Email     string    `db:"email" json:"email,omitempty"`
@@ -39,14 +38,9 @@ type User struct {
 	Avatar    string    `db:"avatar" json:"avatar"`
 }
 
-// String returns a string representation of user id and username.
+// String is a brief identifier of the user.
 func (u *User) String() string {
-	return u.Username
-}
-
-// AsPrefix returns the name in lowercase format.
-func (u *User) AsPrefix() string {
-	return strings.ToLower(u.Username)
+	return "@" + u.Login
 }
 
 func (u *User) PreInsert() {

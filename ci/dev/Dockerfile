@@ -21,6 +21,7 @@ RUN usermod -aG sudo coder \
 USER coder
 ENV IO4_TERRA_DEV_IN_CONTAINER=1
 ENV GOPATH=/home/coder/go
+ENV PATH=/home/coder/go/bin:$PATH
 
 WORKDIR /home/coder/workspace
 ENTRYPOINT [ "sh", "-c", "fixuid && sleep infinity" ]
